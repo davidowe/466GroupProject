@@ -22,8 +22,23 @@ class ffNN(nn.Module):
 
         # will add more layers
         self.l1 = nn.linear(n_features, n_classes)
+        self.softmax = nn.softmax()
 
     def forward(self, vector):
         pred = self.l1(vector)
+
+def train(model):
+    #todo 
+    '''
+    ffnn.forward(vector)'''
+
+def test(model):
+    #todo
+    '''
+    ffnn.forward(vector)'''
+
+def main():
+    ffnn = ffNN()
+    train(ffnn)
 
 
