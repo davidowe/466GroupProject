@@ -26,6 +26,7 @@ class ffNN(nn.Module):
 
     def forward(self, vector):
         pred = self.l1(vector)
+        return self.softmax(pred)
 
 def train(model):
     #todo 
