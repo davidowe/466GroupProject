@@ -1,3 +1,7 @@
+"""
+EN-NL.txt is too large to put on GitHub
+"""
+
 import pandas as pd
 import os
 from xml.dom import minidom
@@ -16,6 +20,7 @@ SL = 'EN'
 TL = 'NL'
 data = pd.read_csv('EN-NL.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL, 1:TL})
 # print(data)
+
 
 def set_train_and_test_data(data):
     training_data_set = []
