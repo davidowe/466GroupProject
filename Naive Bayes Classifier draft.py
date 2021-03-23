@@ -81,9 +81,9 @@ def training(smooth_value, X, y):
             if X[i, x] == 1:
                 variable_matrix[2, x] += 1
 
-    p_x_y_1 = (variable_matrix[0, :] + smooth_value) / (len(one_list) + 2 * smooth_value)
-    p_x_y_0 = (variable_matrix[1, :] + smooth_value) / (len(zero_list) + 2 * smooth_value)
-    p_x_y_2 = (variable_matrix[2, :] + smooth_value) / (len(two_list) + 2 * smooth_value)
+    p_x_y_1 = (variable_matrix[0, :] + smooth_value) / (len(one_list) + 3 * smooth_value)
+    p_x_y_0 = (variable_matrix[1, :] + smooth_value) / (len(zero_list) + 3 * smooth_value)
+    p_x_y_2 = (variable_matrix[2, :] + smooth_value) / (len(two_list) + 3 * smooth_value)
     p_y_1 = len(one_list) / len(y)
     p_y_0 = len(zero_list) / len(y)
     p_y_2 = len(two_list) / len(y)
