@@ -4,18 +4,29 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 class dataloader:
     def __init__(self, train, test):
-        self.languages = ['HU.tsv',
-                          'EL.tsv',
-                          'BG.tsv',
-                          'DE.tsv',
-                          'DA.tsv',
-                          'ES.tsv',
-                          'EN.tsv',
-                          'FR.tsv',
-                          'NL.tsv',
-                          'ET.tsv',
+        self.languages = ['BG.tsv',
                           'CS.tsv',
-                          'FI.tsv']
+                          'DA.tsv',
+                          'DE.tsv',
+                          'EL.tsv',
+                          'EN.tsv',
+                          'ES.tsv',
+                          'ET.tsv',
+                          'FI.tsv',
+                          'FR.tsv',
+                          'HR.tsv',
+                          'HU.tsv',
+                          'IT.tsv',
+                          'LT.tsv',
+                          'LV.tsv',
+                          'MT.tsv',
+                          'NL.tsv',
+                          'PL.tsv',
+                          'PT.tsv',
+                          'RO.tsv',
+                          'SK.tsv',
+                          'SL.tsv',
+                          'SV.tsv']
         self.n_languages = len(self.languages)
         self.n_train=train
         self.n_test=test
@@ -86,6 +97,15 @@ class dataloader:
     def prepare_data(self):
         print('preparing data...')
         self.load_data()
+        print('vectorizing')
         self.vectorize_data()
+        print('splitting')
         self.split_data()
         print('data prepared')
+
+    def get_languages(self):
+        languages = []
+        for l in self.languages:
+            language = l[:2]
+            languages.append(language)
+        return languages
