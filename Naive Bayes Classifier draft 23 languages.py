@@ -11,15 +11,16 @@ import math
 import nltk
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
+import csv
 #CD = '../input/paralel-translation-corpus-in-22-languages/'
 #CD = "C:\Assignments\CMPUT466\group project\"
-language_list = ['EN','NL','BG','CS','DE','DA','EL','ES','ET','FI','FR','GA', 'HR', 'HU', 'IT', 'LT', 'LV', 'MT', 'PL', 'PT', 'RO', 'SK', 'SL']
+language_list = ['EN','NL','BG','CS','DE','DA','EL','ES','ET','FI','FR', 'SV', 'HR', 'HU', 'IT', 'LT', 'LV', 'MT', 'PL', 'PT', 'RO', 'SK', 'SL']
 total_correct_assignment_word = 0
 total_correct_assignment_char = 0
 
 
 language_amount = 23
-train_amount = 1000
+train_amount = 1250
 test_amount = 50
 total_amount = train_amount + test_amount
 
@@ -45,7 +46,7 @@ TL9 = 'FI'
 SL10 = 'EN'
 TL10 = 'FR'
 SL11 = 'EN'
-TL11 = 'GA'
+TL11 = 'SV'
 
 SL12 = 'EN'
 TL12 = 'HR'
@@ -71,8 +72,7 @@ TL21 = 'SK'
 
 SL22 = 'EN'
 TL22 = 'SL'
-SL23 = 'EN'
-TL23 = 'SV'
+
 data1 = pd.read_csv('EN-NL.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL1, 1:TL1})
 data2 = pd.read_csv('EN-BG.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL2, 1:TL2})
 data3 = pd.read_csv('EN-CS.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL3, 1:TL3})
@@ -84,7 +84,7 @@ data7 = pd.read_csv('EN-ES.txt', sep='\t', header = None)[[0, 1]].rename(columns
 data8 = pd.read_csv('EN-ET.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL8, 1:TL8})
 data9 = pd.read_csv('EN-FI.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL9, 1:TL9})
 data10 = pd.read_csv('EN-FR.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL10, 1:TL10})
-data11 = pd.read_csv('EN-GA.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL11, 1:TL11})
+data11 = pd.read_csv('EN-SV.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL11, 1:TL11})
 
 data12 = pd.read_csv('EN-HR.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL12, 1:TL12})
 data13 = pd.read_csv('EN-HU.txt', sep='\t', header = None)[[0, 1]].rename(columns = {0:SL13, 1:TL13})
@@ -261,7 +261,7 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
         training_data_set.append(generate_biword(data10['FR'][i], n))
     for i in range(0, train_amount):
 
-        training_data_set.append(generate_biword(data11['GA'][i], n))
+        training_data_set.append(generate_biword(data11['SV'][i], n))
     for i in range(0, train_amount):
 
         training_data_set.append(generate_biword(data12['HR'][i], n))
@@ -295,9 +295,9 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
     for i in range(0, train_amount):
 
         training_data_set.append(generate_biword(data22['SL'][i], n))
-    #for i in range(0, train_amount):
+    for i in range(0, train_amount):
 
-        #training_data_set.append(generate_biword(data23['SV'][i], n))
+        training_data_set.append(generate_biword(data23['SV'][i], n))
     testing_data_set = []
     for j in range(train_amount, total_amount):
 
@@ -334,7 +334,7 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
         testing_data_set.append(generate_biword(data10['FR'][j], n))
     for j in range(train_amount, total_amount):
 
-        testing_data_set.append(generate_biword(data11['GA'][j], n))
+        testing_data_set.append(generate_biword(data11['SV'][j], n))
     for j in range(train_amount, total_amount):
 
         testing_data_set.append(generate_biword(data12['HR'][j], n))
@@ -406,7 +406,7 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
     testing_data_y = np.append(testing_data_y, np.full((1, len(data8['ET'][train_amount:total_amount])), 8))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data9['FI'][train_amount:total_amount])), 9))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data10['FR'][train_amount:total_amount])), 10))
-    testing_data_y = np.append(testing_data_y, np.full((1, len(data11['GA'][train_amount:total_amount])), 11))
+    testing_data_y = np.append(testing_data_y, np.full((1, len(data11['SV'][train_amount:total_amount])), 11))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data12['HR'][train_amount:total_amount])), 12))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data13['HU'][train_amount:total_amount])), 13))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data14['IT'][train_amount:total_amount])), 14))
@@ -430,7 +430,7 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
 
 
     return training_data_x, testing_data_x, training_data_y, testing_data_y
-def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16, data17, data18, data19, data20, data21, data22, n):
+def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16, data17, data18, data19, data20, data21, data22,  n):
     training_data_set = []
     for i in range(0, train_amount):
         training_data_set.append(generate_bigram(data1['EN'][i], n))
@@ -455,7 +455,7 @@ def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7
     for i in range(0, train_amount):
         training_data_set.append(generate_bigram(data10['FR'][i], n))
     for i in range(0, train_amount):
-        training_data_set.append(generate_bigram(data11['GA'][i], n))
+        training_data_set.append(generate_bigram(data11['SV'][i], n))
     for i in range(0, train_amount):
         training_data_set.append(generate_bigram(data12['HR'][i], n))
     for i in range(0, train_amount):
@@ -504,7 +504,7 @@ def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7
     for j in range(train_amount, total_amount):
         testing_data_set.append(generate_bigram(data10['FR'][j], n))
     for j in range(train_amount, total_amount):
-        testing_data_set.append(generate_bigram(data11['GA'][j], n))
+        testing_data_set.append(generate_bigram(data11['SV'][j], n))
     for j in range(train_amount, total_amount):
 
         testing_data_set.append(generate_bigram(data12['HR'][j], n))
@@ -577,7 +577,7 @@ def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7
     testing_data_y = np.append(testing_data_y, np.full((1, len(data8['ET'][train_amount:total_amount])), 8))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data9['FI'][train_amount:total_amount])), 9))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data10['FR'][train_amount:total_amount])), 10))
-    testing_data_y = np.append(testing_data_y, np.full((1, len(data11['GA'][train_amount:total_amount])), 11))
+    testing_data_y = np.append(testing_data_y, np.full((1, len(data11['SV'][train_amount:total_amount])), 11))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data12['HR'][train_amount:total_amount])), 12))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data13['HU'][train_amount:total_amount])), 13))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data14['IT'][train_amount:total_amount])), 14))
@@ -590,7 +590,7 @@ def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7
     testing_data_y = np.append(testing_data_y, np.full((1, len(data21['SK'][train_amount:total_amount])), 21))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data22['SL'][train_amount:total_amount])), 22))
     #testing_data_y = np.append(testing_data_y, np.full((1, len(data23['SV'][train_amount:total_amount])), 23))
-    count_vectorizer = CountVectorizer(lowercase=True, stop_words = None, analyzer=lambda x: x, max_df=0.25, min_df=7,
+    count_vectorizer = CountVectorizer(lowercase=True, stop_words = None, analyzer=lambda x: x, max_df=0.05, min_df=20,
                                        max_features=None, binary=True)
     # count_vectorizer = CountVectorizer(lowercase=True, stop_words=None, max_df=1.0, min_df=1, max_features=None, binary=True)
     transformed_data_x = count_vectorizer.fit_transform(training_data_set + testing_data_set).toarray()
@@ -829,7 +829,7 @@ def training(smooth_value, X, y):
     p_y_22 = len(twenty_two_list) / len(y)
     #p_y_23 = len(twenty_three_list) / len(y)
     return p_x_y_22,p_x_y_21,p_x_y_20,p_x_y_19,p_x_y_18,p_x_y_17, p_x_y_16, p_x_y_15, p_x_y_14, p_x_y_13, p_x_y_12, p_x_y_11,p_x_y_10,p_x_y_9,p_x_y_8,p_x_y_7,p_x_y_6,p_x_y_5, p_x_y_4, p_x_y_3, p_x_y_2, p_x_y_1, p_x_y_0,p_y_22,p_y_21,p_y_20,p_y_19,p_y_18, p_y_17, p_y_16, p_y_15, p_y_14, p_y_13, p_y_12,p_y_11,p_y_10,p_y_9,p_y_8,p_y_7,p_y_6, p_y_5, p_y_4, p_y_3, p_y_2, p_y_1, p_y_0, smooth_value
-def test_model(p_x_y_22,p_x_y_21,p_x_y_20,p_x_y_19,p_x_y_18,p_x_y_17, p_x_y_16, p_x_y_15, p_x_y_14, p_x_y_13, p_x_y_12, p_x_y_11,p_x_y_10,p_x_y_9,p_x_y_8,p_x_y_7,p_x_y_6,p_x_y_5, p_x_y_4, p_x_y_3, p_x_y_2, p_x_y_1, p_x_y_0,p_y_22,p_y_21,p_y_20,p_y_19,p_y_18, p_y_17, p_y_16, p_y_15, p_y_14, p_y_13, p_y_12,p_y_11,p_y_10,p_y_9,p_y_8,p_y_7,p_y_6, p_y_5, p_y_4, p_y_3, p_y_2, p_y_1, p_y_0, X, smooth):
+def test_model( p_x_y_22,p_x_y_21,p_x_y_20,p_x_y_19,p_x_y_18,p_x_y_17, p_x_y_16, p_x_y_15, p_x_y_14, p_x_y_13, p_x_y_12, p_x_y_11,p_x_y_10,p_x_y_9,p_x_y_8,p_x_y_7,p_x_y_6,p_x_y_5, p_x_y_4, p_x_y_3, p_x_y_2, p_x_y_1, p_x_y_0,p_y_22,p_y_21,p_y_20,p_y_19,p_y_18, p_y_17, p_y_16, p_y_15, p_y_14, p_y_13, p_y_12,p_y_11,p_y_10,p_y_9,p_y_8,p_y_7,p_y_6, p_y_5, p_y_4, p_y_3, p_y_2, p_y_1, p_y_0, X, smooth):
     X_1 = np.zeros((X.shape[0], X.shape[1]))
     X_2 = np.zeros((X.shape[0], X.shape[1]))
     X_3 = np.zeros((X.shape[0], X.shape[1]))
@@ -1235,9 +1235,14 @@ def processing_char(n):
     p_x_y_22,p_x_y_21,p_x_y_20,p_x_y_19,p_x_y_18,p_x_y_17, p_x_y_16, p_x_y_15, p_x_y_14, p_x_y_13, p_x_y_12, p_x_y_11,p_x_y_10,p_x_y_9,p_x_y_8,p_x_y_7,p_x_y_6,p_x_y_5, p_x_y_4, p_x_y_3, p_x_y_2, p_x_y_1, p_x_y_0,p_y_22,p_y_21,p_y_20,p_y_19,p_y_18, p_y_17, p_y_16, p_y_15, p_y_14, p_y_13, p_y_12,p_y_11,p_y_10,p_y_9,p_y_8,p_y_7,p_y_6, p_y_5, p_y_4, p_y_3, p_y_2, p_y_1, p_y_0, smooth_value = training(0.1, training_data_set, y_train)
     prediction = test_model(p_x_y_22,p_x_y_21,p_x_y_20,p_x_y_19,p_x_y_18,p_x_y_17, p_x_y_16, p_x_y_15, p_x_y_14, p_x_y_13, p_x_y_12, p_x_y_11,p_x_y_10,p_x_y_9,p_x_y_8,p_x_y_7,p_x_y_6,p_x_y_5, p_x_y_4, p_x_y_3, p_x_y_2, p_x_y_1, p_x_y_0,p_y_22,p_y_21,p_y_20,p_y_19,p_y_18, p_y_17, p_y_16, p_y_15, p_y_14, p_y_13, p_y_12,p_y_11,p_y_10,p_y_9,p_y_8,p_y_7,p_y_6, p_y_5, p_y_4, p_y_3, p_y_2, p_y_1, p_y_0, testing_data_set, smooth_value)
     print('char accuracy = {}'.format(np.mean((y_test - prediction) == 0)))
-    #confusion = confusion_matrix(y_test, prediction, labels=range(12))
-    #plt.imshow(confusion)
-    #plt.show()
+    confusion = confusion_matrix(y_test, prediction, labels=range(language_amount))
+    print(confusion)
+    #genertae_file(confusion)
+    plt.imshow(confusion)
+    plt.show()
+    print(y_test)
+    print(prediction)
+
     #print(confusion)
     #print(calcualte_F1_char())
     calculate_average_score_char()
@@ -1448,9 +1453,22 @@ def calculate_average_score_char():
     average_F_score_2 = F_score_list_char / language_amount
 
     print('average recall: ' + str(average_recall_2), 'average precision: ' + str(average_precision_2), 'average F score: ' + str(average_F_score_2))
+
+def genertae_file(confusion):
+    address = 'output'
+        
+    with open(address, 'wt') as out_file:
+        tsv = csv.writer(out_file, delimiter='\t')
+                
+        for a in range(confusion.shape[0]):
+            tsv.writerow(confusion[a, :])
+                    
+    
+
 if __name__ == '__main__':
-    #draw_diagram()
-    processing_char(3)
+    #draw_diagram(
+
+    processing_char(5)
 
 
 
