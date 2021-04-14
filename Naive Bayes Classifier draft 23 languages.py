@@ -20,8 +20,8 @@ total_correct_assignment_char = 0
 
 
 language_amount = 23
-train_amount = 1250
-test_amount = 50
+train_amount = 2000
+test_amount = 100
 total_amount = train_amount + test_amount
 
 SL1 = 'EN'
@@ -419,7 +419,7 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
     testing_data_y = np.append(testing_data_y, np.full((1, len(data21['SK'][train_amount:total_amount])), 21))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data22['SL'][train_amount:total_amount])), 22))
     #testing_data_y = np.append(testing_data_y, np.full((1, len(data23['SV'][train_amount:total_amount])), 23))
-    count_vectorizer = CountVectorizer(lowercase=True, stop_words = None, analyzer=lambda x:x, max_df=0.5, min_df=7, max_features=None, binary=True)
+    count_vectorizer = CountVectorizer(lowercase=True, stop_words = None, analyzer=lambda x:x, max_df=0.25, min_df=5, max_features=None, binary=True)
     #count_vectorizer = CountVectorizer(lowercase=True, stop_words=None, max_df=1.0, min_df=1, max_features=None, binary=True)
     transformed_data_x = count_vectorizer.fit_transform(training_data_set + testing_data_set).toarray()
 
@@ -590,7 +590,7 @@ def set_train_and_test_data_char(data1, data2, data3, data4, data5, data6, data7
     testing_data_y = np.append(testing_data_y, np.full((1, len(data21['SK'][train_amount:total_amount])), 21))
     testing_data_y = np.append(testing_data_y, np.full((1, len(data22['SL'][train_amount:total_amount])), 22))
     #testing_data_y = np.append(testing_data_y, np.full((1, len(data23['SV'][train_amount:total_amount])), 23))
-    count_vectorizer = CountVectorizer(lowercase=True, stop_words = None, analyzer=lambda x: x, max_df=0.05, min_df=20,
+    count_vectorizer = CountVectorizer(lowercase=True, stop_words = None, analyzer=lambda x: x, max_df=0.25, min_df=5,
                                        max_features=None, binary=True)
     # count_vectorizer = CountVectorizer(lowercase=True, stop_words=None, max_df=1.0, min_df=1, max_features=None, binary=True)
     transformed_data_x = count_vectorizer.fit_transform(training_data_set + testing_data_set).toarray()
@@ -1249,7 +1249,7 @@ def processing_char(n):
     return np.mean((y_test - prediction) == 0)
 def draw_diagram():
     n = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    #prediction_word = [processing_word(1), processing_word(2), processing_word(3), processing_word(4), processing_word(5), processing_word(6), processing_word(7), processing_word(8), processing_word(9), processing_word(10)]
+    prediction_word = [processing_word(1), processing_word(2), processing_word(3), processing_word(4), processing_word(5), processing_word(6), processing_word(7), processing_word(8), processing_word(9), processing_word(10)]
     prediction_char = [processing_char(1), processing_char(2), processing_char(3), processing_char(4), processing_char(5), processing_char(6), processing_char(7), processing_char(8), processing_char(9), processing_char(10)]
     plt.plot(n, prediction_word, label="word ngrams")
     plt.plot(n, prediction_char, label="character ngrams")
