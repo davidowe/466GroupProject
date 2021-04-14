@@ -295,9 +295,9 @@ def set_train_and_test_data_word(data1, data2, data3, data4, data5, data6, data7
     for i in range(0, train_amount):
 
         training_data_set.append(generate_biword(data22['SL'][i], n))
-    for i in range(0, train_amount):
+    #for i in range(0, train_amount):
 
-        training_data_set.append(generate_biword(data23['SV'][i], n))
+        #training_data_set.append(generate_biword(data23['SV'][i], n))
     testing_data_set = []
     for j in range(train_amount, total_amount):
 
@@ -1466,9 +1466,9 @@ def genertae_file(confusion):
     
 
 if __name__ == '__main__':
-    #draw_diagram(
+    draw_diagram()
 
-    processing_char(5)
+    #processing_char(5)
 
 
 
