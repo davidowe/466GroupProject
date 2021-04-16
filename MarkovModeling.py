@@ -23,41 +23,6 @@ def ngramify(sentence, order):
 #Language is a string identifying which language
 #Data is a list of the training sentences
 #Smoothing is the additive smoothing value added to each transition
-# def train(language, data, smoothing):
-# 	global model, all_ngrams
-# 	#Initialize the model with just the smoothing value
-# 	print("Initializing")
-# 	model[language] = dict()
-# 	for ngram in all_ngrams[order-1]:
-# 		model[language][ngram] = dict()
-# 		for c in character_vocabulary:
-# 			model[language][ngram][c] = smoothing
-#
-#
-# 	#Add up the transition counts
-# 	print("Counting")
-# 	counter = 0
-# 	for sentence in data:
-# 		if counter % 10000 == 0:
-# 			print_progress(counter, len(data))
-# 		counter += 1
-# 		sentence_ngrams = ngramify(sentence, order)
-# 		for (i, ngram) in enumerate(sentence_ngrams):
-# 			model[language][ngram][sentence[i+order]] += 1
-#
-# 	#Normalize to convert counts into probabilities
-# 	print("Normalizing")
-# 	counter = 0
-# 	for ngram in model[language]:
-# 		if counter % 10000 == 0:
-# 			print_progress(counter, len(model[language]))
-# 		counter += 1
-# 		count_sum = 0
-# 		for c in model[language][ngram]:
-# 			count_sum += model[language][ngram][c]
-# 		for c in model[language][ngram]:
-# 			model[language][ngram][c] /= count_sum
-
 def train(lang_list, data_list, smoothing):
 	global model, all_ngrams
 	#Add up the transition counts
@@ -217,12 +182,6 @@ print("Finding all characters")
 find_all_characters(data_dict)
 smoothing_value = 1
 unseen_value = math.log(smoothing_value / len(character_vocabulary))
-# print("Generating all ngrams")
-# generate_all_ngrams(ngram_order)
-# print("Training EN")
-# train("EN", data_EN, ngram_order, 1)
-# print("Training NL")
-# train("NL", data_NL, ngram_order, 1)
 
 ngram_order = 4
 
