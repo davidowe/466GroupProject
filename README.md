@@ -23,3 +23,7 @@ Please use 'Naive Bayes Classifier 23 languages.py', do not use the draft versio
 ## To run Feed Forward Neural Network (FFNN) Classifier 
 
 Ensure all 23 pre-processed language data (ending with .tsv) and 3 .py files (FFNN_confusionMatrix.py, FFNN_dataloader.py, and FFNN.py) are all located in the same directory. Running the FFNN.py file will use classes imported from FFNN_confusionMatrix and FFNN_dataloader.py. The run through will take time to import and process data, before running through 5 epochs of training with k-fold validation, followed by test, prior to printing confusion matrix results. In the FFNN.py file, you can find some global variables which are used to easily set and change parameters used in data processing, training, and testing.
+
+## To run Markov Model 
+
+The only command needed to run the markov model is: 'python3 MarkovModeling.py'. Make sure to unzip the data.zip archive however, as the program will be unable to run without the data available. This will run 10 fold cross validation over the entire dataset and so will take a long time to run. Change the ngram_order variable on line 223 to change the size of the ngrams used.
