@@ -26,4 +26,4 @@ Ensure all 23 pre-processed language data (ending with .tsv) and 3 .py files (FF
 
 ## To run Markov Model 
 
-The only command needed to run the markov model is: 'python3 MarkovModeling.py'. Make sure to unzip the data.zip archive however, as the program will be unable to run without the data available. This will run 10 fold cross validation over the entire dataset and so will take a long time to run. Change the ngram_order variable on line 223 to change the size of the ngrams used.
+The only command needed to run the markov model is: 'python3 MarkovModeling.py'. Make sure to unzip the data.zip archive however, as the program will be unable to run without the data available. This will run 10 fold cross validation over the entire dataset and so will take a long time to run. Change the ngram_order variable on line 186 to change the size of the ngrams used.
