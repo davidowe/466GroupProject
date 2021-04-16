@@ -1,3 +1,4 @@
+import pandas as pd
 import numpy as np
 
 class confusionMatrix:
@@ -7,7 +8,7 @@ class confusionMatrix:
         # self.confusion - confusion matrix
         self.languages = languages
         self.n_lang = len(self.languages)
-        self.confusion = np.zeros((self.n_lang, self.n_lang))
+        self.confusion = np.zeros((self.n_lang, self.n_lang), dtype=np.int32)
 
     def add_confusion(self, pred, gt):
         # pred - prediction array
@@ -20,13 +21,6 @@ class confusionMatrix:
 
     def print_confusion(self):
         # needs better formatting
-        print('\t', end='')
-        for lang in self.languages:
-            print(lang, end=' ')
-        print('\n')
-
-        for i, lang in enumerate(self.languages):
-            print(lang, end=' ')
-            for count in self.confusion[i]:
-                print(count, end=' ')
-            print('\n')   
+        table = pd.DataFrame(self.confusion, self.languages, self.languages)
+        pd.set_option('max_columns', None)
+        print(table)

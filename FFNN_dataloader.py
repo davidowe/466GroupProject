@@ -33,7 +33,7 @@ class dataloader:
         self.n = self.n_train + self.n_test
         self.data = np.array([])
         self.labels = np.zeros((self.n*self.n_languages, self.n_languages))
-        self.countvectorizer = None
+        self.count_vectorizer = None
         self.vec_data = None
         self.train_x = None
         self.train_y = None
@@ -45,15 +45,16 @@ class dataloader:
         # n - number of train and test data to load per language
         n = self.n_train + self.n_test
         for i, language in enumerate(self.languages):
-            loaded_lang = pd.read_csv(language, sep='\t', header=None)
+            loaded_lang = pd.read_csv(language, sep='\t', header=None, nrows=(self.n+1))
             self.data = np.append(self.data, loaded_lang[0][1:n+1])
             self.labels[i * self.n : i * self.n + self.n, i] = 1
 
     def vectorize_data(self):
         # vectorizes entire dataset
         # should be run after load_data(self) has been run
-        self.count_vectorizer = CountVectorizer(lowercase=True, stop_words=None, max_df=1.0, min_df=1, max_features=None, binary=True)
+        self.count_vectorizer = CountVectorizer(lowercase=True, stop_words=None, max_df=1.0, min_df=2, max_features=None)
         self.vec_data = self.count_vectorizer.fit_transform(self.data).toarray()
+        del self.data
 
     def split_data(self):
         # splits data into training set and test set
@@ -86,15 +87,20 @@ class dataloader:
             self.test_y[test_s:test_e] = self.labels[tst_s:tst_e]
 
     def get_train(self):
+        # returns training data and training data labels
         return self.train_x, self.train_y 
 
     def get_test(self):
+        # returns test data and test data labels
         return self.test_x, self.test_y
 
     def get_n_languages(self):
+        # returns the number of languages used
         return self.n_languages
 
     def prepare_data(self):
+        # combines actions of importing raw data, vectorizing data, 
+        # and splitting data
         print('preparing data...')
         self.load_data()
         print('vectorizing')
@@ -104,6 +110,7 @@ class dataloader:
         print('data prepared')
 
     def get_languages(self):
+        # returns a list of languages
         languages = []
         for l in self.languages:
             language = l[:2]
